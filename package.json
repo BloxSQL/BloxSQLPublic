@@ -1,0 +1,26 @@
+{
+  "name": "sqlblox-public",
+  "version": "2.1.7",
+  "description": "A API to allow SQL to be used in roblox",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raikin",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
+    "chalk": "^5.3.0",
+    "colors": "^1.4.0",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.3.1",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "mysql": "^2.18.1",
+    "net": "^1.0.2",
+    "path": "^0.12.7",
+    "sqlite": "^5.1.1",
+    "supertest": "^7.0.0"
+  }
+}
