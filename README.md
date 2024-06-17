@@ -29,7 +29,7 @@ This server provides a RESTful API interface for executing SQL queries on a MySQ
    node server.js
    ```
 
-   Server will run on port 3000 by default. You can change `port` variable in `app.js` if needed.
+   Server will run on port 3000 by default. You can change `port` variable in `server.js` if needed.
 
 ## API Endpoints
 
