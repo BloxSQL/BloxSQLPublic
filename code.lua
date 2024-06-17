@@ -1,9 +1,11 @@
-local SERVER_URL = "http://localhost:3000/query" 
+local SERVER_URL = "SERVER URL" 
+local UniqueKey = "AXSDSADS" -- MAKE YOUR KEY UNIQUE
+local tablename = "userdata"
 
 local payload = {
-	key = "AXSDSADS", -- MAKE YOUR KEY UNIQUE
+	key = UniqueKey, 
 	sqlQuery = {
-		table = "testTable",
+		table = tablename,
 		query = "CREATE TABLE IF NOT EXISTS {TABLE_NAME} (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255) NOT NULL)"
 		-- If your table doesnt use {TABLE_NAME} it will result in a warning every time and leaving your data exposed if you use {TABLE_NAME} it will use (KEY)_(TABLE)
 	}
