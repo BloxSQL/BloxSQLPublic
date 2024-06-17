@@ -1,5 +1,5 @@
 ---
-test
+
 # Node.js Express MySQL API Server
 
 This server provides a RESTful API interface for executing SQL queries on a MySQL database. It includes rate limiting to protect against abuse and supports dynamic table creation based on the provided SQL queries.
