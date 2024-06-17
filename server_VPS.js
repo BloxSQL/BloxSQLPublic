@@ -119,6 +119,17 @@ app.post('/query', (req, res) => {
   }
 });
 
+// Handle GET request to /ping
+app.get('/ping', (req, res) => {
+  console.log('Received ping request');
+  res.status(200).json({ status: '200' });
+});
+
+app.get('/help', (req, res) => {
+  console.log('Received help request');
+  res.status(200).send('https://github.com/thekingofspace/BloxSQLPublic');
+});
+
 // Function to execute SQL query
 function executeQuery(query, res) {
   // Log the query execution
@@ -134,7 +145,8 @@ function executeQuery(query, res) {
   });
 }
 
-// Bind the server to 0.0.0.0 and the specified port
+// Start the server to listen on port 3000 on all network interfaces
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server running on port ${port}`.green);
 });
+
