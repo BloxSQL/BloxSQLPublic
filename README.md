@@ -168,25 +168,31 @@ This Lua script demonstrates how to interact with a Node.js Express MySQL API se
 
 ---
 
-How to use SQL
+Certainly! Here's your text formatted similarly to the previous examples, with proper code blocks for SQL queries:
 
-a basic explanation on how to work sql
+---
+
+## How to use SQL
 
 SQL (Structured Query Language) is a tool for working with databases. You use it to send commands called queries for tasks like getting, adding, updating, or deleting data. Here are the main types of queries:
 
+### SELECT Statement
 
-- **SELECT**: Retrieves data from a database.
-  ```sql
-  SELECT column1, column2 FROM table_name;
-  ```
-  ```sql
-  SELECT column1, column2 FROM table_name WHERE condition;
-  ```
-- **INSERT INTO**
+Retrieves data from a database.
+
+```sql
+SELECT column1, column2 FROM table_name;
+```
+
+```sql
+SELECT column1, column2 FROM table_name WHERE condition;
+```
+
+### INSERT INTO Statement
 
 The `INSERT INTO` statement is used to add new records (rows) into a table in a database. It allows you to specify the table name, the columns into which data will be inserted, and the values to be inserted into those columns.
 
- Syntax:
+#### Syntax:
 
 ```sql
 INSERT INTO table_name (column1, column2, ...)
@@ -197,7 +203,7 @@ VALUES (value1, value2, ...);
 - **column1, column2, ...**: Names of the columns into which data will be inserted. It's optional to specify columns if you're inserting values for all columns in order.
 - **VALUES (value1, value2, ...)**: Values to be inserted into the corresponding columns. Each value corresponds to the column in the same position in the column list.
 
- Example:
+#### Example:
 
 Let's say you have a table `students` with columns `id`, `name`, and `age`. To insert a new student into this table:
 
@@ -208,7 +214,7 @@ VALUES ('John Doe', 25);
 
 This query inserts a new record with the name 'John Doe' and age 25 into the `students` table. If the `id` column is auto-incremented or has a default value set, it will automatically generate the next id value.
 
- Inserting Values into All Columns:
+Inserting Values into All Columns:
 
 If you want to insert values into all columns of a table in the order they were defined:
 
@@ -218,23 +224,34 @@ INSERT INTO students VALUES (1, 'Jane Smith', 22);
 
 This assumes the table `students` has columns in the order `id`, `name`, and `age`. Here, `1` would go into `id`, `'Jane Smith'` into `name`, and `22` into `age`.
 
-- **UPDATE**: Modifies existing data in a database.
-  ```sql
-  UPDATE table_name SET column1 = new_value;
-  ```
-  ```sql
-  UPDATE table_name SET column1 = new_value WHERE condition;
-  ```
+### UPDATE Statement
 
-- **DELETE**: Removes data from a database.
-  ```sql
-  DELETE FROM table_name WHERE condition;
-  ```
-  ```sql
-  DELETE FROM table_name;
-  ```
+Modifies existing data in a database.
+
+```sql
+UPDATE table_name SET column1 = new_value;
+```
+
+```sql
+UPDATE table_name SET column1 = new_value WHERE condition;
+```
+
+### DELETE Statement
+
+Removes data from a database.
+
+```sql
+DELETE FROM table_name WHERE condition;
+```
+
+```sql
+DELETE FROM table_name;
+```
+
+### CREATE TABLE Statement
 
 When creating a table, use `CREATE TABLE` followed by column definitions:
+
 ```sql
 CREATE TABLE table_name (
     column1 datatype,
@@ -248,15 +265,20 @@ CREATE TABLE table_name (
     column9 FLOAT,
     column10 DECIMAL(10, 2),
     column11 CHAR(10),
-    column12 BLOB,
-    -- you will most likely add "NOT NULL" to the end of each
+    column12 BLOB
+    -- Add "NOT NULL" as needed
 );
 ```
 
+### DROP TABLE Statement
+
 When deleting a table, use `DROP TABLE`:
+
 ```sql
 DROP TABLE table_name;
 ```
+
+### Adding a Column if it Doesn't Exist
 
 To check if a column exists and add it if it does not:
 
@@ -274,7 +296,8 @@ BEGIN
 END
 ```
 
-Example:
+#### Example:
+
 ```sql
 IF NOT EXISTS (
     SELECT *
@@ -286,20 +309,30 @@ BEGIN
 END
 ```
 
+### Filtering Data with WHERE Clause
+
 To filter data when querying, use `WHERE`:
+
 ```sql
 SELECT column1, column2
 FROM table_name
 WHERE condition;
 ```
 
-For example, to get employees older than 30:
+#### Example:
+
+To get employees older than 30:
+
 ```sql
 SELECT name, age
 FROM employees
 WHERE age > 30;
 ```
 
+### Additional SQL Features
+
 SQL also supports various operators like `=`, `>`, `<`, `AND`, `OR`, `LIKE`, `IN`, `BETWEEN`, and handling `NULL` values. These help refine queries to specific criteria.
 
 When fetching all data from a table (`SELECT * FROM table_name;`), you receive a result set which can be processed programmatically to handle each row and column individually in your application.
+
+---
