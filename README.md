@@ -164,10 +164,6 @@ This Lua script demonstrates how to interact with a Node.js Express MySQL API se
 
 ---
 
-Certainly! Here's your text formatted similarly to the previous examples, with proper code blocks for SQL queries:
-
----
-
 ## How to use SQL
 
 SQL (Structured Query Language) is a tool for working with databases. You use it to send commands called queries for tasks like getting, adding, updating, or deleting data. Here are the main types of queries:
