@@ -70,8 +70,6 @@ Requests to `/query` endpoint are limited to 50 requests per second per IP addre
 
 ---
 
----
-
 # Lua Script for Interacting with Node.js Express MySQL API
 
 This Lua script demonstrates how to interact with a Node.js Express MySQL API server from a game environment. The server is used to execute SQL queries, including dynamic table creation based on the provided payload.
