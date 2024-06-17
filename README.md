@@ -53,6 +53,11 @@ Example:
   }
 }
 ```
+### `POST /ping`
+Using this will return a 200 if the server is up.
+
+### `POST /help`
+This will return a link to the github!
 
 ### Rate Limiting
 
