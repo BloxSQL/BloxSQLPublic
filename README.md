@@ -10,7 +10,7 @@ This server provides a RESTful API interface for executing SQL queries on a MySQ
    Ensure you have Node.js installed. Then, install required npm packages found in the package.
 
 2. **Configure Database**
-   Edit `app.js` and set your MySQL database connection details:
+   Edit `server.js` and set your MySQL database connection details:
 
    ```javascript
    const db = mysql.createConnection({
