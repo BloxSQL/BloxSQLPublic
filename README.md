@@ -70,8 +70,6 @@ Requests to `/query` endpoint are limited to 50 requests per second per IP addre
 
 ---
 
-Certainly! Here's a README documentation focusing on how to interact with the server using Lua scripting, specifically within the context of a game environment (likely Roblox, based on the `game:GetService("HttpService")` usage):
-
 ---
 
 # Lua Script for Interacting with Node.js Express MySQL API
