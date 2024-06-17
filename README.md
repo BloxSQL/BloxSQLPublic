@@ -28,7 +28,7 @@ This server provides a RESTful API interface for executing SQL queries on a MySQ
    ```bash
    node start.js
    ```
-* to open local type local to open VPS type VPS*
+*to open local type local to open VPS type VPS*
 
    Server will run on port 3000 by default. You can change `port` variable in `server.js` if needed.
 
