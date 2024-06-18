@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const colors = require('colors');
 const rateLimit = require('express-rate-limit');
 const app = express();
-const port = 3000; // Use any port you prefer
+const port = 3000;
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -18,10 +18,11 @@ app.use(limiter);
 
 // MySQL database connection
 const db = mysql.createConnection({
-  host: "YOUR_HOST",
-  user: "YOUR_USERNAME",
-  password: "YOUR_PASSWORD",
-  database: "YOUR_DATABASE"
+  host: "YOUR HOST",
+  port: "YOUR PORT",
+  user: "YOUR USERNAME",
+  password: "YOUR PASSWORD",
+  database: "YOUR DATABASE"
 });
 
 db.connect(err => {
@@ -153,7 +154,7 @@ app.post('/request', (req, res) => {
 
   const query = `SHOW TABLES LIKE '%${key}%'`;
 
-  connection.query(query, (error, results) => {
+  db.query(query, (error, results) => {
     if (error) {
       console.error('Error executing query:', error);
       return res.status(500).send('Error executing query');
@@ -176,11 +177,19 @@ function executeQuery(query, res) {
       console.error('Error executing query:'.red, err);
       return res.status(500).json({ error: 'Error executing query.', details: err.message });
     }
-    res.json({ results });
+
+    // Check if the query is a SELECT query
+    if (query.trim().toUpperCase().startsWith('SELECT')) {
+      // Send the results as JSON
+      console.log('Query results:', results); // Log results to check in console
+      res.json({ data: results }); // Return results in JSON response
+    } else {
+      // For other queries (INSERT, UPDATE, DELETE), just send success response
+      res.json({ message: 'Query executed successfully.' });
+    }
   });
 }
 
-// Start the server to listen on port 3000 on all network interfaces
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server running on port ${port}`.green);
 });

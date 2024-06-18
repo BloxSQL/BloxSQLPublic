@@ -154,7 +154,7 @@ app.post('/request', (req, res) => {
 
   const query = `SHOW TABLES LIKE '%${key}%'`;
 
-  connection.query(query, (error, results) => {
+  db.query(query, (error, results) => {
     if (error) {
       console.error('Error executing query:', error);
       return res.status(500).send('Error executing query');
@@ -177,7 +177,16 @@ function executeQuery(query, res) {
       console.error('Error executing query:'.red, err);
       return res.status(500).json({ error: 'Error executing query.', details: err.message });
     }
-    res.json({ results });
+
+    // Check if the query is a SELECT query
+    if (query.trim().toUpperCase().startsWith('SELECT')) {
+      // Send the results as JSON
+      console.log('Query results:', results); // Log results to check in console
+      res.json({ data: results }); // Return results in JSON response
+    } else {
+      // For other queries (INSERT, UPDATE, DELETE), just send success response
+      res.json({ message: 'Query executed successfully.' });
+    }
   });
 }
 
