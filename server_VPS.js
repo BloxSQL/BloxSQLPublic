@@ -130,6 +130,30 @@ app.get('/help', (req, res) => {
   res.status(200).send('https://github.com/thekingofspace/BloxSQLPublic');
 });
 
+app.post('/request', (req, res) => {
+  const { key } = req.body;
+
+  if (!key) {
+    console.log('No key provided in request');
+    return res.status(400).send('No key provided in request');
+  }
+
+  console.log(`Received request with key: ${key}`);
+
+  const query = `SHOW TABLES LIKE '%${key}%'`;
+
+  connection.query(query, (error, results) => {
+    if (error) {
+      console.error('Error executing query:', error);
+      return res.status(500).send('Error executing query');
+    }
+
+    const tables = results.map(row => Object.values(row)[0]);
+    console.log(`Found tables: ${tables.join(', ')}`);
+    res.status(200).json({ tables });
+  });
+});
+
 // Function to execute SQL query
 function executeQuery(query, res) {
   // Log the query execution
