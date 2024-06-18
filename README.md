@@ -54,6 +54,31 @@ Example:
 }
 ```
 
+### `POST /request`
+
+Gets all tables that belond to your key
+
+#### Request Body
+
+- `key`: Alphanumeric identifier for query validation.
+
+Example:
+```json
+{
+  "key": "your_key"
+}
+```
+
+### `GET /help`
+
+Gives you the link to github.
+
+
+### `GET /ping`
+
+returns 200 if running fine!
+
+
 ### Rate Limiting
 
 Requests to `/query` endpoint are limited to 50 requests per second per IP address. Exceeding this limit will return a `429 Too Many Requests` response with message "Rate limit exceeded. Please try again after 3 seconds."
