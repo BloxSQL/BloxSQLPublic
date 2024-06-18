@@ -133,7 +133,7 @@ app.post('/query', (req, res) => {
 // Handle GET request to /ping
 app.get('/ping', (req, res) => {
   console.log('Received ping request');
-  res.status(200).json({ status: '200' });
+  res.status(200).send('200');
 });
 
 app.get('/help', (req, res) => {
