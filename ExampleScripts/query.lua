@@ -1,4 +1,4 @@
-local SERVER_URL = "SERVER URL" 
+local SERVER_URL = "YOUR SERVER" 
 local UniqueKey = "AXSDSADS" -- MAKE YOUR KEY UNIQUE
 local tablename = "userdata"
 
