@@ -74,7 +74,18 @@ app.post('/query', (req, res) => {
   }
 
   try {
+    // Validate SQL query structure
     validateSqlQuery(sqlQuery);
+
+    // Check if the query contains restricted keywords
+    const restrictedKeywords = ['SHOW TABLES', 'SHOW COLUMNS', 'INFORMATION_SCHEMA'];
+    for (const keyword of restrictedKeywords) {
+      if (sqlQuery.query.toUpperCase().includes(keyword)) {
+        const errorMsg = `${keyword} is not allowed.`.red;
+        console.error(errorMsg);
+        return res.status(400).json({ error: errorMsg });
+      }
+    }
 
     // Define the table name
     let tableName;
