@@ -61,7 +61,7 @@ This will return a link to the github!
 
 ### `POST /request`
 
-Gets all tables that belond to your key
+Gets all tables that belong to your key
 
 #### Request Body
 
