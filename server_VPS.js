@@ -5,18 +5,15 @@ const rateLimit = require('express-rate-limit');
 const app = express();
 const port = 3000;
 
-// Middleware to parse JSON bodies
 app.use(express.json());
 
-// Rate limiting setup: limit requests to 50 per second per IP address
 const limiter = rateLimit({
-  windowMs: 1000, // 1 second
-  max: 50, // limit each IP to 50 requests per windowMs
+  windowMs: 1000,
+  max: 50,
   message: 'Rate limit exceeded. Please try again after 3 seconds.'
 });
 app.use(limiter);
 
-// MySQL database connection
 const db = mysql.createConnection({
   host: "YOUR HOST",
   port: "YOUR PORT",
@@ -33,14 +30,12 @@ db.connect(err => {
   console.log('Connected to the MySQL database'.green);
 });
 
-// Middleware function to validate SQL query structure
 function validateSqlQuery(sqlQuery) {
   if (!sqlQuery || !sqlQuery.query || typeof sqlQuery.query !== 'string') {
     throw new Error('Invalid SQL query structure.');
   }
 }
 
-// Middleware function to check if table exists
 function checkIfTableExists(tableName, callback) {
   const query = `SHOW TABLES LIKE '${tableName}'`;
   db.query(query, (err, results) => {
@@ -53,15 +48,12 @@ function checkIfTableExists(tableName, callback) {
   });
 }
 
-// Handle SQL queries
 app.post('/query', (req, res) => {
   const { key, sqlQuery } = req.body;
 
-  // Log the key and SQL query
   console.log('Received request with key:'.blue, key);
   console.log('SQL Query:'.blue, JSON.stringify(sqlQuery, null, 2));
 
-  // Check if key exists and is alphanumeric
   if (!key) {
     const errorMsg = 'Missing key.'.red;
     console.error(errorMsg);
@@ -75,10 +67,8 @@ app.post('/query', (req, res) => {
   }
 
   try {
-    // Validate SQL query structure
     validateSqlQuery(sqlQuery);
 
-    // Check if the query contains restricted keywords
     const restrictedKeywords = ['SHOW TABLES', 'SHOW COLUMNS', 'INFORMATION_SCHEMA'];
     for (const keyword of restrictedKeywords) {
       if (sqlQuery.query.toUpperCase().includes(keyword)) {
@@ -88,16 +78,13 @@ app.post('/query', (req, res) => {
       }
     }
 
-    // Define the table name
     let tableName;
     if (sqlQuery.query.includes('{TABLE_NAME}')) {
       tableName = `${key}_${sqlQuery.table}`;
       const formattedQuery = sqlQuery.query.replace('{TABLE_NAME}', tableName);
 
-      // Log the formatted query
       console.log('Formatted SQL Query:'.green, formattedQuery);
 
-      // Check if table exists before allowing CREATE TABLE
       if (sqlQuery.query.startsWith('CREATE')) {
         checkIfTableExists(tableName, (err, tableExists) => {
           if (err) {
@@ -111,18 +98,15 @@ app.post('/query', (req, res) => {
             return res.status(400).json({ error: errorMsg });
           }
 
-          // Proceed with creating the table
           executeQuery(formattedQuery, res);
         });
       } else {
-        // For other queries (INSERT, UPDATE, DELETE), proceed with executing the query
         executeQuery(formattedQuery, res);
       }
     } else {
       const warningMsg = 'Your query does not contain {TABLE_NAME}. This means anyone can edit it!'.yellow;
       console.warn(warningMsg);
 
-      // Proceed with executing the query with the warning
       executeQuery(sqlQuery.query, res);
     }
   } catch (err) {
@@ -131,7 +115,6 @@ app.post('/query', (req, res) => {
   }
 });
 
-// Handle GET request to /ping
 app.get('/ping', (req, res) => {
   console.log('Received ping request');
   res.status(200).send('200');
@@ -166,25 +149,19 @@ app.post('/request', (req, res) => {
   });
 });
 
-// Function to execute SQL query
 function executeQuery(query, res) {
-  // Log the query execution
   console.log('Executing SQL Query:'.green, query);
 
-  // Execute the SQL query
   db.query(query, (err, results) => {
     if (err) {
       console.error('Error executing query:'.red, err);
       return res.status(500).json({ error: 'Error executing query.', details: err.message });
     }
 
-    // Check if the query is a SELECT query
     if (query.trim().toUpperCase().startsWith('SELECT')) {
-      // Send the results as JSON
-      console.log('Query results:', results); // Log results to check in console
-      res.json({ data: results }); // Return results in JSON response
+      console.log('Query results:', results);
+      res.json({ data: results });
     } else {
-      // For other queries (INSERT, UPDATE, DELETE), just send success response
       res.json({ message: 'Query executed successfully.' });
     }
   });
