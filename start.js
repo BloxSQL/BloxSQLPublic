@@ -1,7 +1,6 @@
 const { spawn } = require('child_process');
 const readline = require('readline');
 
-// Function to run each script and handle its output
 function runScript(script) {
     const process = spawn('node', [script]);
 
@@ -20,7 +19,7 @@ function runScript(script) {
     return process;
 }
 
-// Setup readline interface to get user input
+
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout
@@ -39,7 +38,6 @@ rl.question('Are you running local or VPS? ', (answer) => {
         return;
     }
 
-    // Run all scripts
     scripts.forEach(runScript);
 
     // Close the readline interface
